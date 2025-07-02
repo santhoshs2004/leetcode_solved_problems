@@ -130,9 +130,53 @@ class Solution {
 
 ```
 
+## 328. Odd Even Linked List
 
+# Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.The first node is considered odd, and the second node is even, and so on.Note that the relative order inside both the even and odd groups should remain as it was in the input.You must solve the problem in O(1) extra space complexity and O(n) time complexity.
+```
+t(n)=O(n)
+s(n)=O(1)
 
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        // using two pointers
+        if (head==null || head.next==null) return head; //base case
+        ListNode odd= head;
+        ListNode even = head.next;
+        ListNode evenhead=even;
+        while (even!=null && even.next!=null){
+            odd.next=even.next;
+            odd=odd.next; //moving the pointer to new one
+            even.next=odd.next;
+            even=even.next; //moving the pointer to new one
+        }
+        odd.next=evenhead; //connecting odd and even 
+        return head;
+    }
+}
 
+```
+
+## 53. Maximum Subarray
+# Given an integer array nums, find the subarray with the largest sum, and return its sum.
+```
+t(n)=O(n)
+s(n)=O(1)
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+        //using kadanes algorithm...
+        int curr_sum=nums[0];
+        int maxsum=nums[0];
+        for (int i=1;i<nums.length;i++){
+            curr_sum=Math.max(nums[i],curr_sum+nums[i]);
+            maxsum=Math.max(maxsum,curr_sum);
+        }
+        return maxsum;
+    }
+}
+
+```
 
 
 
