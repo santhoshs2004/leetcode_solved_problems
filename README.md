@@ -178,9 +178,36 @@ class Solution {
 
 ```
 
+## 3304. Find the K-th Character in String Game I
+# Alice and Bob are playing a game. Initially, Alice has a string word = "a".You are given a positive integer k.Now Bob will ask Alice to perform the following operation forever:Generate a new string by changing each character in word to its next character in the English alphabet, and append it to the original word.For example, performing the operation on "c" generates "cd" and performing the operation on "zb" generates "zbac".Return the value of the kth character in word, after enough operations have been done for word to have at least k characters.Note that the character 'z' can be changed to 'a' in the operation.
 
+```
+t(n)=O(k)
+s(n)=O(k)
 
+class Solution {
+    public char kthCharacter(int k) {
+        //have stringbuilder with initialising the value as a with the word length n as 1
+        StringBuilder word=new StringBuilder("a");
+        int n=1;
 
+        while(n<k){ //boundary check untill n is lesser than k to execute the code
+            n=word.length();//update the length for each iteration
+            for(int i=0;i<n;i++){
+                char ch=word.charAt(i); //traverse and get the each character
+                if (ch=='z'){
+                    word.append('a'); //if z append the word with a
+                }
+                else{
+                    word.append((char)(ch+1)); //if it is a-y append the word with +1 ch
+                }
+            }
+        }
+        return word.charAt(k-1);//get the kth character(due to 0 based indexing)
+    }
+}
+
+```
 
 
 
