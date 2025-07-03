@@ -209,12 +209,75 @@ class Solution {
 
 ```
 
+## 5. Longest Palindromic Substring
+# Given a string s, return the longest palindromic substring in s.
 
+```
+t(n)=O(n^3)
+s(n)=O(1)
 
+class Solution {
+    public String longestPalindrome(String s) {
+        int length,start;
+        for(length=s.length();length>0;length--){ //start from the longestrange
+            for(start=0;start<=s.length()-length;start++){ //boundary check
+                if (check(start,start+length,s)){
+                    return s.substring(start,start+length);
+                }
+            }
+        }
+        return "";
+    }
 
+    public boolean check (int i, int j, String s){
+        int left=i; 
+        int right=j-1;
+        //using two pointer
 
+        while(left<right){
+            if (s.charAt(left)!=s.charAt(right)){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
 
+```
+## 2. Add Two Numbers
 
+# You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+```
+t(n)= O(max(n, m))
+s(n)= O(max(n, m))
+
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        return add_numbers(l1,l2,0); //recursive call function
+    }
+
+    public ListNode add_numbers(ListNode l1,ListNode l2,int carry){
+        //base condition
+        if (l1==null && l2==null && carry==0) return null;
+        int sum=carry;
+        if (l1!=null){//add l1 values
+            sum+=l1.val;
+            l1=l1.next;
+        }
+        if (l2!=null){ //add l2 values
+            sum+=l2.val;
+            l2=l2.next;
+        }
+        ListNode head=new ListNode(sum%10); //store the last digit
+        head.next=add_numbers(l1,l2,sum/10); //use the first digit to sum up 
+        return head; //return the new linkedlist
+    }
+}
+
+```
 
 
 
