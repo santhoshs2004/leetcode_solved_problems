@@ -279,6 +279,289 @@ class Solution {
 
 ```
 
+## 3307. Find the K-th Character in String Game II
+
+# Alice and Bob are playing a game. Initially, Alice has a string word = "a".You are given a positive integer k. You are also given an integer array operations, where operations[i] represents the type of the ith operation.Now Bob will ask Alice to perform all operations in sequence:If operations[i] == 0, append a copy of word to itself.If operations[i] == 1, generate a new string by changing each character in word to its next character in the English alphabet, and append it to the original word. For example, performing the operation on "c" generates "cd" and performing the operation on "zb" generates "zbac".Return the value of the kth character in word after performing all the operations.Note that the character 'z' can be changed to 'a' in the second type of operation.
+```
+t(n)= 	O(log k)
+s(n)= 	O(log k)
+
+class Solution {
+    public char kthCharacter(long k, int[] operations) {
+        int ans=0;
+        k--; //convert to 0 based indexing..
+        String binary_conv=Long.toBinaryString(k); //convert number to binary digit & stored as string
+        int index=0;
+        for(int i=binary_conv.length()-1;i>=0;i--){
+            if (binary_conv.charAt(i)=='1'){
+                ans+=operations[index];
+            }
+            index++;
+        }
+        return (char)('a'+(ans%26)); //get the kth index in character
+    }
+}
+
+t(n)=O(log k)
+s(n)=O(1)
+
+class Solution {
+    public char kthCharacter(long k, int[] operations) {
+        int ans=0;
+        k--;//0 based indexing
+        //using bit manipulations and with optimized one...
+        int index=0;//tracks which bit we are checking
+        while(k>0){
+            if ((k&1)==1){ //check if the last bit of k is 1
+                ans+=operations[index]; //if so add it
+            }
+            k>>=1;//rightshift to remove the 1 and move to next 
+            index++;
+        }
+        return (char)('a'+(ans%26)); 
+    }
+}
+
+```
+
+## 1394. Find Lucky Integer in an Array
+# Given an array of integers arr, a lucky integer is an integer that has a frequency in the array equal to its value.Return the largest lucky integer in the array. If there is no lucky integer return -1.
+
+```
+t(n)=O(n)
+s(n)=O(n)
+
+class Solution {
+    public int findLucky(int[] arr) {
+        //frequency of an array refers to how many times each element appears in the array.
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int i:arr){ // Count frequency of each number
+            map.put(i,map.getOrDefault(i,0)+1);
+        }
+        int res=-1;
+        for(int num:map.keySet()){ //Check if frequency == number itself
+            if (num==map.get(num)){
+                res=Math.max(res,num); // take the largest lucky number
+            }
+        }
+        return res;
+    }
+}
+
+```
+## 7. Reverse Integer
+
+# Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0.Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+```
+t(n)= O(1)
+s(n)= O(1)
+
+class Solution {
+    public int reverse(int x) {
+        int rev=0;
+
+        while(x!=0){
+            int digit=x%10;
+            x=x/10;
+            //overflow condition...
+            if (rev>Integer.MAX_VALUE/10 || rev==Integer.MAX_VALUE && digit>7){
+                return 0;
+            }
+            if (rev<Integer.MIN_VALUE/10|| rev==Integer.MIN_VALUE && digit<-8){
+                return 0;
+            }
+            //.......
+            rev=rev*10+digit;
+        }
+        return rev;
+    }
+}
+
+```
+
+## Armstrong number
+ex; 153= 1^3+5^3+3^3=1+125+27== 153..
+
+```
+t(n)=O(d)
+s(n)=O(1)
+
+public class ArmstrongRange {
+
+    public static void main(String[] args) {
+        System.out.println("Armstrong numbers between 1 and 10000:");
+        for (int num = 1; num <= 10000; num++) {
+            if (isArmstrong(num)) {
+                System.out.println(num);
+            }
+        }
+    }
+
+    public static boolean isArmstrong(int num) {
+        int original = num;
+        int n = countDigits(num);
+        int sum = 0;
+
+        while (num > 0) {
+            int digit = num % 10;
+            sum += Math.pow(digit, n);
+            num /= 10;
+        }
+
+        return sum == original;
+    }
+
+    public static int countDigits(int num) {
+        int count = 0;
+        while (num > 0) {
+            num /= 10;
+            count++;
+        }
+        return count; // handles 0 as a special case
+    }
+}
+
+
+```
+## 125. Valid Palindrome
+
+# A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.Given a string s, return true if it is a palindrome, or false otherwise.
+```
+t(n)=O(n)
+s(n)=O(n)
+
+class Solution {
+    public boolean isPalindrome(String s) {
+        //using two pointer 
+        s=s.toLowerCase().replaceAll("[^a-z0-9]",""); //convert all char to lowercases
+        int start=0;
+        int end=s.length()-1;
+        while(start<end){
+            if(s.charAt(start)!=s.charAt(end)){
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+}
+
+t(n)=O(n)
+s(n)=O(1)
+
+class Solution {
+    public boolean isPalindrome(String s) {
+        int start = 0;
+        int end = s.length() - 1;
+
+        while (start < end) {
+            // Skip non-alphanumeric characters from start
+            while (start < end && !Character.isLetterOrDigit(s.charAt(start))) {
+                start++;
+            }
+
+            // Skip non-alphanumeric characters from end
+            while (start < end && !Character.isLetterOrDigit(s.charAt(end))) {
+                end--;
+            }
+
+            // Compare characters case-insensitively
+            if (Character.toLowerCase(s.charAt(start)) != Character.toLowerCase(s.charAt(end))) {
+                return false;
+            }
+
+            start++;
+            end--;
+        }
+
+        return true;
+    }
+}
+
+
+```
+## 509. Fibonacci Number
+# The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is,
+```
+t(n)= O(n)
+s(n)= O(1)
+
+class Solution {
+    public int fib(int n) {
+        if (n==0) return 0;
+        if (n==1) return 1;
+        if (n==2) return 1;
+        int num1=1;
+        int num2=1;
+        for(int i=3;i<=n;i++){
+            int num3=num1+num2;
+            num1=num2;
+            num2=num3;
+        }
+        return num2;
+    }
+}
+
+```
+## 1838. Frequency of the Most Frequent Element
+
+# The frequency of an element is the number of times it occurs in an array.You are given an integer array nums and an integer k. In one operation, you can choose an index of nums and increment the element at that index by 1.Return the maximum possible frequency of an element after performing at most k operations.
+
+```
+t(n)= O(nlogn)
+s(n)= O(1)
+
+class Solution {
+    public int maxFrequency(int[] nums, int k) {
+        //using sorting+sliding window
+        Arrays.sort(nums);    //sort the array
+        int left=0;
+        long total=0;
+        int max_freq=0;
+        for(int right=0;right<nums.length;right++){
+            total+=nums[right]; //sumup the array elements
+            //find the rightmost element sum with sliding window shell
+
+            long req_sum=(long) nums[right] *(right-left+1);
+
+            //shrink the window
+
+            while(req_sum-total>k){
+                total-=nums[left]; 
+                left++;
+                //update the req_sum after shrinking the window
+                req_sum=(long) nums[right]*(right-left+1); 
+            }
+
+            max_freq=Math.max(max_freq,right-left+1); //find max frequency value..
+
+        }
+        return max_freq;
+    }
+}
+
+```
+
+## 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
