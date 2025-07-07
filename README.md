@@ -543,12 +543,92 @@ class Solution {
 
 ```
 
+## 349. Intersection of Two Arrays
+
+# Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order.
+
+```
+t(n)=O(n+m)
+s(n)=O(n)
+
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        HashSet<Integer> map1=new HashSet<>();
+        HashSet<Integer> map2=new HashSet<>();
+
+        for (int num1:nums1){
+            map1.add(num1);
+        }
+        for(int num2:nums2){
+            if (map1.contains(num2)){
+                map2.add(num2);
+            }
+        }
+        int arr[]=new int[map2.size()];
+        int ind=0;
+        for(int num2:map2){
+            arr[ind++]=num2;
+        }
+        return arr;
+
+    }
+}
+
+```
+
+## 560. Subarray Sum Equals K
+
+# Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.A subarray is a contiguous non-empty sequence of elements within an array.
+
+```
+t(n)=	O(n²)
+s(n)=  O(1)
+
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int n=nums.length;
+        int ind1,ind2;
+        int count=0;
+        for(ind1=0;ind1<n;ind1++){
+            int sum=0;
+            for(ind2=ind1;ind2<n;ind2++){
+                sum+=nums[ind2];
+
+                if (sum==k){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+}
+
+t(n)=O(n)
+s(n)=O(n)
+
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+// using hashmap + prefixsum...
+
+        HashMap<Integer,Integer> map=new HashMap<>();
+        map.put(0,1); //base condition..for default values...
+        int sum=0;
+        int count=0;
+
+        for (int num1:nums){
+            sum+=num1;
+
+            if (map.containsKey(sum-k)){
+                count+=map.get(sum-k); //count the subarray
+            }
+            map.put(sum,map.getOrDefault(sum,0)+1); //update the map values with the input..
+        }
+        return count;
+    }
+}
+
+```
 ## 
-
-
-
-
-
 
 
 
