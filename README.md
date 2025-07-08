@@ -686,10 +686,29 @@ class Solution {
 
 ```
 
+## 268. Missing Number
+
+# Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
+```
+t(n)= O(n)
+s(n)=O(1)
+
+class Solution {
+    public int missingNumber(int[] nums) {
+        int n=nums.length;
+        int sum=0;;
+        int val=(n*(n+1))/2; //sum of n numbers
+        for(int sum1:nums){
+            sum+=sum1;
+        }
+        return val-sum; //missing number in the array
+    }
+}
+
+
+```
+
 ## 
-
-
-
 
 
 
