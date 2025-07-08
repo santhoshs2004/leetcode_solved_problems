@@ -628,13 +628,65 @@ class Solution {
 }
 
 ```
+## 2302. Count Subarrays With Score Less Than K
+
+# The score of an array is defined as the product of its sum and its length.For example, the score of [1, 2, 3, 4, 5] is (1 + 2 + 3 + 4 + 5) * 5 = 75.Given a positive integer array nums and an integer k, return the number of non-empty subarrays of nums whose score is strictly less than k.A subarray is a contiguous sequence of elements within an array.
+
+```
+t(n)= O(N)
+s(n)= O(1)
+
+class Solution {
+    public long countSubarrays(int[] nums, long k) {
+        //using sliding window method..
+        int n=nums.length;
+        int left=0;
+        int right;
+        long sum=0;
+        long count=0;
+
+        for(right=0;right<n;right++){
+            sum+=nums[right]; //sum the array values
+
+            while((sum*(right-left+1))>=k){ //shrink the window size if exceeds >=k
+                sum-=nums[left];
+                left++;
+            }
+            count+=(right-left+1); //count the subarrays
+        }
+        return count;
+}
+    }
+    
+```
+## 881. Boats to Save People
+# You are given an array people where people[i] is the weight of the ith person, and an infinite number of boats where each boat can carry a maximum weight of limit. Each boat carries at most two people at the same time, provided the sum of the weight of those people is at most limit.Return the minimum number of boats to carry every given person.
+
+```
+t(n)= O( log n)
+s(n)= O(1)
+
+class Solution {
+    public int numRescueBoats(int[] people, int limit) {
+        Arrays.sort(people); //sort the array
+        int count=0;
+        //using two pointer approach
+        int left=0;
+        int right=people.length-1;
+        while(left<=right){
+            if (people[left]+people[right]<=limit){
+                left++;
+            }
+            right--;
+            count++;
+        }
+        return count;
+    }
+}
+
+```
+
 ## 
-
-
-
-
-
-
 
 
 
