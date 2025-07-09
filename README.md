@@ -760,5 +760,81 @@ class Solution {
 
 ```
 
+## 239. Sliding Window Maximum
+
+# You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position.Return the max sliding window.
+```
+t(n)=O(n*k)
+s(n)=O(1)
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        //brute force approach...
+        int n=nums.length;
+        if (n==0 || k==0){
+            return new int[0]; //base case
+        }
+         int []res=new int[n-k+1]; //create an empty array with window size
+
+        for(int i=0;i<=n-k;i++){    //control start index of each window...
+            int max=nums[i];        //initialise the default values as maximum and then compare
+            for(int j=i;j<i+k;j++){    //ensures there is window of k values are traversed...
+                if (nums[j]>max){     //compare the max val
+                    max=nums[j];
+                }
+            }
+            res[i]=max; //store the max val in the array after every iteration
+        }
+        return res;
+
+    }
+}
 
 
+t(n)=O(n)
+s(n)=O(k)
+
+
+
+
+```
+ 
+## Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.Return the sum of the three integers.You may assume that each input would have exactly one solution.
+
+```
+t(n)= 	O(n^2)
+s(n)=   O(1)
+
+class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
+        //using three pointers
+        int n=nums.length;
+        int closestsum=nums[0]+nums[1]+nums[2]; //sum the values
+        //i= first pointer
+        for (int i=0;i<n-2;i++){ //go for 3 sum indexes
+            int left=i+1; //second pointer
+            int right=n-1; //third pointer
+
+            while(left<right){
+                int sum=nums[i]+nums[left]+nums[right];
+                if (sum==target){
+                    return sum;
+                }
+
+                if (Math.abs(sum-target)<Math.abs(closestsum-target)){
+                    closestsum= sum;
+                }
+
+                if (sum<target) left++;
+                else right--;
+            }
+
+        }
+        return closestsum;
+        
+    }
+}
+
+
+```
