@@ -799,7 +799,8 @@ s(n)=O(k)
 
 ```
  
-## Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.Return the sum of the three integers.You may assume that each input would have exactly one solution.
+## 16. 3Sum Closest
+# Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.Return the sum of the three integers.You may assume that each input would have exactly one solution.
 
 ```
 t(n)= 	O(n^2)
@@ -836,5 +837,95 @@ class Solution {
     }
 }
 
+```
+
+## 28. Find the Index of the First Occurrence in a String
+
+# Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+```
+t(n)= O((n - m + 1) * m)
+s(n)=O(1)
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        //calculate the length of the each string
+        int n=haystack.length();
+        int m=needle.length();
+
+        for(int i=0;i<=n-m;i++){
+            //inbuilt operations....for comparing the string....
+            if (haystack.substring(i,i+m).equals(needle)){
+                return i;
+            }
+        }
+        return -1;
+    }
+}
 
 ```
+## 206. Reverse Linked List
+
+# Given the head of a singly linked list, reverse the list, and return the reversed list.
+```
+t(n)=O(n)
+s(n)=O(n)
+
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        //RECURSIVE FUNCTION
+        if (head==null || head.next==null) return head; //base cases...
+        ListNode newhead= reverseList(head.next); //recursive call...
+        head.next.next=head; //changes to reverse flow
+        head.next=null; //deletes the old chain
+        return newhead; //return the new head...
+
+    }
+}
+
+```
+## 88. Merge Sorted Array
+
+# You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.Merge nums1 and nums2 into a single array sorted in non-decreasing order.The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+```
+t(n)= O((m+n) log (m+n)) 
+s(n)= O(m+n) 
+
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        //brute force method
+        int [] temp=new int[m+n];
+        for(int i=0;i<m;i++){
+            temp[i]=nums1[i];
+        }
+        for(int j=0;j<n;j++){
+            temp[j+m]=nums2[j];
+        }
+        Arrays.sort(temp);
+
+        for(int i=0;i<n+m;i++){
+            nums1[i]=temp[i];
+        }
+        
+    }
+}
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
