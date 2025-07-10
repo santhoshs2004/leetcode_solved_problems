@@ -913,11 +913,64 @@ class Solution {
 
 ```
 
+## 387. First Unique Character in a String
+
+# Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return -1.
+
+```
+t(n)=O(n)
+s(n)=O(1)
+
+class Solution {
+    public int firstUniqChar(String s) {
+        //using hashmap...
+        HashMap<Character,Integer> map=new HashMap<>();
+        int n=s.length();
+        for(int i=0;i<n;i++){ //store the character in the map..
+            char ch=s.charAt(i);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+        for(int i=0;i<n;i++){
+            if (map.get(s.charAt(i))==1){//find the unique character as the count is 1 in map..
+                return i;
+            }
+        }
+        return -1;
 
 
+    }
+}
 
+```
 
+## 452. Minimum Number of Arrows to Burst Balloons
+# There are some spherical balloons taped onto a flat wall that represents the XY-plane. The balloons are represented as a 2D integer array points where points[i] = [xstart, xend] denotes a balloon whose horizontal diameter stretches between xstart and xend. You do not know the exact y-coordinates of the balloons.Arrows can be shot up directly vertically (in the positive y-direction) from different points along the x-axis. A balloon with xstart and xend is burst by an arrow shot at x if xstart <= x <= xend. There is no limit to the number of arrows that can be shot. A shot arrow keeps traveling up infinitely, bursting any balloons in its path.Given the array points, return the minimum number of arrows that must be shot to burst all balloons.
+```
+t(n)=O (nlog n)
+s(n)=O(1)
 
+class Solution {
+    public int findMinArrowShots(int[][] points) {
+        //sort the array
+        Arrays.sort(points,(a,b)->Integer.compare(a[1],b[1]));
+        int n=points.length;
+        //get default arrow as 1;
+        int min_arrow=points[0][1];
+        int arrows=1; //minimum one arrow required to burst the balloons
+        for(int i=1;i<n;i++){
+            if (points[i][0]>min_arrow){
+                arrows++;
+                min_arrow=points[i][1];
+            }
+        }
+        return arrows;
+    }
+}
+
+```
+## 
+
+# 
 
 
 
