@@ -2,7 +2,7 @@
 
 ## 9. Palindrome Number
 # Given an integer x, return true if x is a palindrome, and false otherwise.
-```
+``` 
 t(n)= O(logx)
 s(n)=O(1)
 class Solution {
