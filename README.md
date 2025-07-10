@@ -968,17 +968,117 @@ class Solution {
 }
 
 ```
-## 
+##  4. Median of Two Sorted Arrays
 
-# 
+# Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.The overall run time complexity should be O(log (m+n)).
+```
+t(n)= O(log(n+m))
+s(n)= O(1)
+
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int n=nums1.length;
+        int m=nums2.length;
+        int []arr=new int[m+n];
+        int k=0;
+        for(int i=0;i<n;i++){
+            arr[k++]=nums1[i];
+        }
+        for(int i=0;i<m;i++){
+            arr[k++]=nums2[i];
+        }
+        Arrays.sort(arr);
+        int len=arr.length;
+        if (len%2==1){
+            return (double) arr[len/2];
+        }
+        else{
+            int middle1= arr[len/2-1];
+            int middle2=arr[len/2];
+            return (double)(((double) middle1+(double) middle2)/2);
+        }
+    }
+}
+
+```
+## 160. Intersection of Two Linked Lists
+
+# Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. If the two linked lists have no intersection at all, return null.For example, the following two linked lists begin to intersect at node c1:
+```
+t(n)=O(n+m)
+s(n)=O(1)
+
+
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA==null ||headB==null) return null;
+        //using two pointer...approach....
+        ListNode a=headA;
+        ListNode b=headB;
+
+        while(a!=b){
+            a=a==null?headB:a.next;
+            b=b==null?headA:b.next;
+        }
+        return a;
+    }
+}
+```
+## 338. Counting Bits
+
+# Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
+
+```
+t(n)=O(n)
+s(n)=O(n)
+
+class Solution {
+    public int[] countBits(int n) {
+        int []arr=new int[n+1];
+
+        for(int i=0;i<=n;i++){
+            //i>>1 - right shift..
+            //i&1 - bitwise and operation...
+            arr[i]=arr[i>>1]+(i&1); 
+        }
+        return arr;
+    }
+}
+```
+## 34. Find First and Last Position of Element in Sorted Array
+
+# Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.If target is not found in the array, return [-1, -1].You must write an algorithm with O(log n) runtime complexity.
+```
+t(n)= O(n)
+s(n)= O(1)
+
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        //linear search.....
+        int ptr1=-1;
+        int ptr2=-1;
+
+        for(int i=0;i<nums.length;i++){
+            if (nums[i]==target){
+                if (ptr1==-1) ptr1=i;
+                ptr2=i;
+            }
+        }
+        return new int[]{ptr1,ptr2};
+    }
+}
+```
+
+## 148. Sort List
+# Given the head of a linked list, return the list after sorting it in ascending order.
+```
+t(n)= 
+s(n)=
 
 
 
 
-
-
-
-
+```
 
 
 
