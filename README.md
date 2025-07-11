@@ -1184,14 +1184,65 @@ class Solution {
 
 ```
 
+## 151. Reverse Words in a String
 
+# Given an input string s, reverse the order of the words.A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.Return a string of the words in reverse order concatenated by a single space.Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
 
+```
+t(n)=O(n)
+s(n)=O(n)
 
+class Solution {
+    public String reverseWords(String s) {
+        String [] words=s.trim().split("\\s+"); //trim and split the string
+        StringBuilder res=new StringBuilder();
+        for(int i= words.length-1;i>=0;i--){ //reverse the traversal
+            res.append(words[i]);
+            if (i!=0){  //give space only between the words..
+                res.append(" ");
+            }
 
+        }
+        return res.toString(); //return the stringbuilder res as string 
+    }
+}
 
+```
 
+## 18. 4Sum
 
+# Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:
+# 0 <= a, b, c, d < n
+# a, b, c, and d are distinct.
+# nums[a] + nums[b] + nums[c] + nums[d] == target
+# You may return the answer in any order.
 
+```
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        //brute force method
+        HashSet<List<Integer>> res=new HashSet<>();
+        int n=nums.length;
+        Arrays.sort(nums);
+        for(int i=0;i<n-3;i++){
+            for(int j=i+1;j<n-2;j++){
+                for(int k=j+1;k<n-1;k++){
+                    for(int l=k+1;l<n;l++){
+                        long sum=nums[i]+nums[j]+nums[k]+nums[l];
+                        if(sum==target){
+                            res.add(Arrays.asList(nums[i],nums[j],nums[k],nums[l]));
+                        }
+                            
+                    }
+                }
+            }
+        }
+        return new ArrayList<>(res);
+    }
+}
+
+```
+## 
 
 
 
