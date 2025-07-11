@@ -1069,16 +1069,139 @@ class Solution {
 }
 ```
 
-## 148. Sort List
-# Given the head of a linked list, return the list after sorting it in ascending order.
-```
-t(n)= 
-s(n)=
+## 771. Jewels and Stones
 
-
-
+# You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have. Each character in stones is a type of stone you have. You want to know how many of the stones you have are also jewels.Letters are case sensitive, so "a" is considered a different type of stone from "A".
 
 ```
+t(n)= O(m+n)
+s(n)= O(m)
+
+class Solution {
+    public int numJewelsInStones(String jewels, String stones) {
+        //using hashset...approach....
+        int n=jewels.length();
+        int m=stones.length();
+
+        HashSet<Character> jewelset=new HashSet<>(); //hashset
+
+        for(char ch:jewels.toCharArray()){
+            jewelset.add(ch); //add jewels character in the set
+        }
+        int count=0;
+
+        for(char st:stones.toCharArray()){
+            if (jewelset.contains(st)){ //if jewel character is in stones,increment the count..
+                count++;
+            }
+        }
+        return count;
+
+    }
+}
+
+
+t(n)=O(m*n)
+s(n)=O(1)
+
+
+class Solution {
+    public int numJewelsInStones(String jewels, String stones) {
+        //using array...
+        int m=jewels.length();
+        int n=stones.length();
+        int count=0;
+        for(int i=0;i<m;i++){
+            char ch=jewels.charAt(i);
+            for(int j=0;j<n;j++){
+                if (stones.charAt(j)==ch){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+}
+
+```
+
+## 524. Longest Word in Dictionary through Deleting
+
+# Given a string s and a string array dictionary, return the longest string in the dictionary that can be formed by deleting some of the given string characters. If there is more than one possible result, return the longest word with the smallest lexicographical order. If there is no possible result, return the empty string.
+
+```
+t(n)= O(n * k)
+s(n)= O(1)
+
+class Solution {
+    public String findLongestWord(String s, List<String> dictionary) {
+        String res="";
+        for(String word:dictionary){
+            if (issubsequence(word,s)){
+                if (word.length()>res.length()||(word.length()==res.length() && word.compareTo(res)<0)){
+                    res=word;
+                }
+            }
+        }
+        return res;
+    }
+
+    private boolean issubsequence(String word,String s){
+        int i=0,j=0;
+        while(i<word.length() && j<s.length()){
+            if (word.charAt(i)==s.charAt(j)){
+                i++;
+            }
+            j++;
+        }
+        return i==word.length();
+    }
+}
+
+```
+## 1346. Check If N and Its Double Exist
+
+# Given an array arr of integers, check if there exist two indices i and j such that :
+# i != j
+# 0 <= i, j < arr.length
+# arr[i] == 2 * arr[j] 
+```
+t(n)= O(n²)
+s(n)= O(1)
+
+class Solution {
+    public boolean checkIfExist(int[] arr) {
+        for(int i=0;i<arr.length;i++){
+            for(int j=0;j<arr.length;j++){
+                if (i!=j && arr[i]==2*arr[j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
