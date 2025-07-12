@@ -1242,10 +1242,40 @@ class Solution {
 }
 
 ```
-## 
+# 128. Longest Consecutive Sequence
 
+## Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.You must write an algorithm that runs in O(n) time.
 
+```
+t(n)=O(n)
+s(n)=O(n)
 
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        if (nums.length==0) return 0;
+        //using hashset....approach
+        HashSet<Integer> set=new HashSet<>();
+        for(int num:nums){ //add the array elements in the set
+            set.add(num);
+        }
+        int longest=0;
+        for(int num:set){
+            if (!set.contains(num-1)){ //initialise the set elements as current and count as 1;
+                int current=num;
+                int count=1;
+                while (set.contains(current+1)){ //execute the operation
+                    current++;
+                    count++;
+                }
+                longest=Math.max(longest,count); //find the longest sequence one
+            }
+        }
+        return longest; //return the longest sequence count...
+    }
+}
+
+```
+# 
 
 
 
